@@ -1,0 +1,62 @@
+[
+  {
+    "MaSach": "2",
+    "TenSach": "9999",
+    "NamXuatBan": 2,
+    "NhaSanXuat": "2",
+    "GiaNhap": 28888.0,
+    "GiaBan": 2.0,
+    "SoLuongNhap": 299,
+    "HinhDaiDien": "F:\\Dowload\\HinhSach\\anh2.jpg"
+  },
+  {
+    "MaSach": "t001",
+    "TenSach": "Truyện ma ám",
+    "NamXuatBan": 2002,
+    "NhaSanXuat": "Nhạt",
+    "GiaNhap": 2000000.0,
+    "GiaBan": 3000000.0,
+    "SoLuongNhap": 50,
+    "HinhDaiDien": "F:\\Dowload\\HinhSach\\anh1.jpg"
+  },
+  {
+    "MaSach": "11",
+    "TenSach": "10 câu chuyện",
+    "NamXuatBan": 4444,
+    "NhaSanXuat": "4",
+    "GiaNhap": 4.0,
+    "GiaBan": 4.0,
+    "SoLuongNhap": 5,
+    "HinhDaiDien": "F:\\Dowload\\HinhSach\\anh1.jpg"
+  },
+  {
+    "MaSach": "8",
+    "TenSach": "Cô Mía tập 1",
+    "NamXuatBan": 8,
+    "NhaSanXuat": "8",
+    "GiaNhap": 8.0,
+    "GiaBan": 8.0,
+    "SoLuongNhap": 8,
+    "HinhDaiDien": "F:\\Dowload\\HinhSach\\anh3.jpg"
+  },
+  {
+    "MaSach": "44",
+    "TenSach": "Truyện ma có thật",
+    "NamXuatBan": 4,
+    "NhaSanXuat": "OK là",
+    "GiaNhap": 41.0,
+    "GiaBan": 4.0,
+    "SoLuongNhap": 4,
+    "HinhDaiDien": "F:\\Dowload\\HinhSach\\anh2.jpg"
+  },
+  {
+    "MaSach": "1",
+    "TenSach": "13sdsad",
+    "NamXuatBan": 1,
+    "NhaSanXuat": "1",
+    "GiaNhap": 1.0,
+    "GiaBan": 1.0,
+    "SoLuongNhap": 1,
+    "HinhDaiDien": "F:\\Dowload\\HinhSach\\anh3.jpg"
+  }
+]
