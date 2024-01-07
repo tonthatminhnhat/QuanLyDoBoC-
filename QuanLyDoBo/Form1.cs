@@ -5,6 +5,7 @@ using ImageMagick;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace QuanLyDoBo
 {
@@ -17,10 +18,9 @@ namespace QuanLyDoBo
             LoadKieuMauAndAllSanPham();
             dataGridViewSP.CellClick += new DataGridViewCellEventHandler(SelectRowSP);
             dataGridViewAnh.CellClick += new DataGridViewCellEventHandler(SelectRowAnh);
-            dataGridViewSize.DataError += new DataGridViewDataErrorEventHandler(dataGridViewSize_DataError);
-
             dataGridViewSize.CellEndEdit += new DataGridViewCellEventHandler(dataGridViewAnh_EnterSoLuong);
-              //     Debug.WriteLine($"Kiểu mẫu khác null KieuMau: {kieumau.idkieumau} và {kieumau.tenmau}");
+
+            //     Debug.WriteLine($"Kiểu mẫu khác null KieuMau: {kieumau.idkieumau} và {kieumau.tenmau}");
         }
         // truyền giá trị vào 2 combobox
         void LoadKieuMauAndAllSanPham()
@@ -45,7 +45,29 @@ namespace QuanLyDoBo
             cbbidkieumau.DataSource = ls.ToList();
             cbbidkieumau.DisplayMember = "tenmau";
             cbbidkieumau.ValueMember = "idkieumau";
-            // Đ
+
+            var sapXepOptions = new List<string>
+           {
+              "", // Rỗng
+              "Giá tiền cao thấp",
+              "Giá tiền thấp cao",
+              "Tên sản phẩm (a-z)",
+              "Tên sản phẩm (z-a)",
+              "Hết hàng",
+              "Loại vải",
+              "Kiểu mẫu",
+              "Sale",
+
+            };
+            // Đặt dữ liệu cho ComboBox cbbsapxep
+            cbbsapxep.DataSource = sapXepOptions;
+            var loc = new List<string>
+           {
+              "",  "Size S","Size M", "Size L", "Size XL","Size XXL",
+              "Đỏ","Cam","Vàng","Lục","Lam","Chàm","Trắng"
+            };
+            // Đặt dữ liệu cho ComboBox cbblọc
+            cbbloc.DataSource = loc;
         }
         // load lại thong tin sản phẩm
         void loadSanPham()
@@ -69,11 +91,16 @@ namespace QuanLyDoBo
                         sale = t.sale
                     }).ToList();
                     sanPhamDTOBindingSource.DataSource = ls;
+                    resetFormSP();
+                    resetFormAnh();
+                    txtmasp2.Text = "";
+                    anhDTOBindingSource.DataSource = null;
+                    sizeDTOBindingSource.DataSource = null;
+
                     //     lbTongSoSinhVien.Text = ls.Count.ToString();
                 }
                 else
                 {
-                    Debug.WriteLine($"Kiểu mẫu khác KieuMau: {kieumau.idkieumau} và {kieumau.tenmau}");
                     SanPhamDB db = new SanPhamDB();
                     var ls = db.SanPhams.Where(t => t.idkieumau == kieumau.idkieumau)
                         .Select(t => new SanPhamDTO
@@ -89,13 +116,114 @@ namespace QuanLyDoBo
                             sale = t.sale
                         }).ToList();
                     sanPhamDTOBindingSource.DataSource = ls;
+                    resetFormSP();
+                    resetFormAnh();
+                    txtmasp2.Text = "";
+                    anhDTOBindingSource.DataSource = null;
+                    sizeDTOBindingSource.DataSource = null;
                 }
             }
         }
 
         // đăng ký sự kiện cho cbbKieuMau
         private void cbbKieuMau_SelectedIndexChanged(object sender, EventArgs e) { loadSanPham(); }
+     
+        private void cbbSapXel_SelectedIndexChanged(object sender, EventArgs e) {
+            string selectedSorting = cbbsapxep.SelectedItem.ToString();
+            List<SanPhamDTO> currentList = sanPhamDTOBindingSource.DataSource as List<SanPhamDTO>;
 
+            switch (selectedSorting)
+            {
+                case "":
+                    string a = (string)cbbKieuMau.SelectedValue;
+                    cbbKieuMau.SelectedItem = null;
+                    cbbKieuMau.SelectedValue = a;
+                    break;
+                case "Giá tiền cao thấp":
+                    currentList = currentList.OrderByDescending(sp => sp.gia).ToList();
+                    break;
+                case "Giá tiền thấp cao":
+                    currentList = currentList.OrderBy(sp => sp.gia).ToList();
+                    break;
+                case "Hết hàng":
+                    currentList = currentList.OrderBy(sp => sp.hethang).ThenBy(sp => sp.namesp).ToList();
+                    break;
+                case "Loại vải":
+                    currentList = currentList.OrderBy(sp => sp.loaivai).ThenBy(sp => sp.namesp).ToList();
+                    break;
+                case "Kiểu mẫu":
+                    currentList = currentList.OrderBy(sp => sp.idkieumau).ThenBy(sp => sp.namesp).ToList();
+                    break;
+                case "Sale":
+                    currentList = currentList.OrderByDescending(sp => sp.sale).ToList();
+                    break;
+                case "Tên sản phẩm (a-z)":
+                    currentList = currentList.OrderBy(sp => sp.namesp).ToList();
+                    break;
+                case "Tên sản phẩm (z-a)":
+                    currentList = currentList.OrderByDescending(sp => sp.namesp).ToList();
+                    break;
+                default:
+                    break;
+            }
+            sanPhamDTOBindingSource.DataSource = currentList;
+        }
+
+        private void cbbLoc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string a = (string)cbbKieuMau.SelectedValue;
+            cbbKieuMau.SelectedItem = null;
+            cbbKieuMau.SelectedValue = a;
+            var db = new SanPhamDB();
+            string bien = cbbloc.SelectedItem.ToString();
+            List<SanPhamDTO> currentList = sanPhamDTOBindingSource.DataSource as List<SanPhamDTO>;
+            switch (bien)
+            {
+                case "":
+                    string b = (string)cbbKieuMau.SelectedValue;
+                    cbbKieuMau.SelectedItem = null;
+                    cbbKieuMau.SelectedValue = b;
+                    break;
+                case "Size S":
+                    currentList = currentList.Where(sp =>
+                    db.Sizes.Any(s => s.masp == sp.masp && s.soluong > 0 && s.size == "S"))
+                   .ToList();
+                    break;
+                case "Size M":
+                    currentList = currentList.Where(sp =>
+                    db.Sizes.Any(s => s.masp == sp.masp && s.soluong > 0 && s.size == "M"))
+                   .ToList();
+                    break;
+                case "Size L":
+                    currentList = currentList.Where(sp =>
+                    db.Sizes.Any(s => s.masp == sp.masp && s.soluong > 0 && s.size == "L"))
+                   .ToList();
+                    break;
+                case "Cam":
+                    currentList = currentList.Where(sp =>
+                    db.Anhs.Any(a => a.mau.ToLower().Contains("cam") && a.masp == sp.masp && a.hethang == false) ||
+                    db.Anhs.Any(a => a.mau.ToLower().Contains("Cam") && a.masp == sp.masp && a.hethang == false))
+                   .ToList();
+                    break;
+                case "Đỏ":
+                    currentList = currentList.Where(sp =>
+                    db.Anhs.Any(a => a.mau.ToLower().Contains("đỏ") && a.masp == sp.masp && a.hethang == false) ||
+                    db.Anhs.Any(a => a.mau.ToLower().Contains("Đỏ") && a.masp == sp.masp && a.hethang == false))
+                   .ToList();
+                    break;
+                case "Vàng":
+                    currentList = currentList.Where(sp =>
+                    db.Anhs.Any(a => a.mau.ToLower().Contains("vàng") && a.masp == sp.masp && a.hethang == false)||
+                    db.Anhs.Any(a => a.mau.ToLower().Contains("Vàng") && a.masp == sp.masp && a.hethang == false)                  
+                    )
+                   .ToList();
+                    break;
+                default:
+                    break;
+            }
+            sanPhamDTOBindingSource.DataSource = currentList;
+        }
+        // ================================================ xử lý bảng sản phẩm ================================
         private void SelectRowSP(object sender, DataGridViewCellEventArgs e)
         {
             int rowIndex = e.RowIndex;
@@ -115,6 +243,7 @@ namespace QuanLyDoBo
                 cbbidkieumau.Enabled = false;
                 LayDSAnh(txtmasp.Text);
                 txtmasp2.Text = sp.masp;
+                sizeDTOBindingSource.DataSource = null;
             }
         }
         /// đẩy ảnh lên 
@@ -443,29 +572,9 @@ namespace QuanLyDoBo
                 }).ToList();
             sizeDTOBindingSource.DataSource = ls;
         }
-         private bool hasError = false;
-        private void dataGridViewSize_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            if (e.ColumnIndex == 1 && e.Exception is FormatException)
-            {
-                LayDSSize(txtmaanh.Text);
-                MessageBox.Show("Vui lòng nhập một số nguyên dương!.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                hasError = true; // Đánh dấu rằng có lỗi xảy ra
-                Debug.WriteLine($"Kiểu mẫu khác null KieuMau 1: {hasError}");
-                e.ThrowException = false;
-                LayDSSize(txtmaanh.Text);          
-            }
-        }
+
         private void dataGridViewAnh_EnterSoLuong(object sender, DataGridViewCellEventArgs e)
         {
-            if (hasError)
-            {
-                Debug.WriteLine($"Kiểu mẫu khác null KieuMau2: {hasError} ");
-                hasError = false;
-                Debug.WriteLine($"Kiểu mẫu khác null KieuMau3: {hasError} ");
-                return;
-            }
-
             if (e.ColumnIndex == 1)
             {
                 string maSize = dataGridViewSize.Rows[e.RowIndex].Cells[0].Value.ToString();
@@ -520,5 +629,75 @@ namespace QuanLyDoBo
             }
         }
 
+        private void txtSearch(object sender, KeyPressEventArgs e)
+        {
+
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                var tuKhoa = txtsearch.Text.ToLower();
+                var keywords = tuKhoa.Split(' ');
+
+                Debug.WriteLine($"Xuất từ khóa: {tuKhoa}");
+                using (var db = new SanPhamDB())
+                {
+                    var ls = db.SanPhams
+                        .Where(sp => sp.hethang == false &&
+                        (
+                        //tìm kiếm cơ bản 
+                          db.Sizes.Any(s => s.size.ToLower().Contains(tuKhoa) && sp.masp == s.masp && s.soluong > 0)
+
+                      || sp.idkieumau.ToLower().Contains(tuKhoa) //tìm theo idkieumau
+                      || db.KieuMaus.Any(km => km.tenmau.ToLower().Contains(tuKhoa) && km.idkieumau == sp.idkieumau) //tìm theo tên kiểu mẫu
+                      || sp.loaivai.ToLower().Contains(tuKhoa)  // tìm theo loại vải
+
+                      || db.Anhs.Any(a => a.mau.ToLower().Contains(tuKhoa) && a.masp == sp.masp && a.hethang == false) // tìm kiém theo màu còn hàng
+
+                      // tìm kiếm phối hơp trong bảng Sản Phẩm - tìm kiếm theo idkieumau và loai vai
+                      || (tuKhoa.Contains(sp.idkieumau.ToLower())
+                         && tuKhoa.Contains(sp.loaivai.ToLower()))
+                      || (db.KieuMaus.Any(km => tuKhoa.Contains(km.tenmau.ToLower()) && km.idkieumau == sp.idkieumau) //tìm kiếm theo kieumau và loai vai
+                         && tuKhoa.Contains(sp.loaivai.ToLower()) && !db.Anhs.Any(a => tuKhoa.Contains(a.mau.ToLower()) && a.masp == sp.masp && a.hethang == false)
+                         )
+
+                      // tìm kiếm phối hơp trong bảng Sản Phẩm và bảng Ảnh
+                      || (db.Anhs.Any(a => tuKhoa.Contains(a.mau.ToLower()) && a.masp == sp.masp && a.hethang == false)
+                         && db.KieuMaus.Any(km => tuKhoa.Contains(km.tenmau.ToLower()) && km.idkieumau == sp.idkieumau) //tìm kiếm theo kieumau và loai vai và màu
+                         && tuKhoa.Contains(sp.loaivai.ToLower()))
+                      || (db.Anhs.Any(a => tuKhoa.Contains(a.mau.ToLower()) && a.masp == sp.masp && a.hethang == false)
+                         && db.KieuMaus.Any(km => tuKhoa.Contains(km.tenmau.ToLower()) && km.idkieumau == sp.idkieumau)) //tìm kiếm theo kieumau và màu
+                      || (db.Anhs.Any(a => tuKhoa.Contains(a.mau.ToLower()) && a.masp == sp.masp && a.hethang == false)
+                         && tuKhoa.Contains(sp.loaivai.ToLower()))                                                      //tìm kiếm theo loai vai và màu
+                      || db.Anhs.Any(a => tuKhoa.Contains(a.mau.ToLower()) && a.masp == sp.masp && a.hethang == false)
+
+                      )
+                      )
+                        .Select(sp => new SanPhamDTO
+                        {
+                            idsp = sp.idsp,
+                            masp = sp.masp,
+                            idkieumau = sp.idkieumau,
+                            namesp = sp.namesp,
+                            hethang = sp.hethang,
+                            gia = sp.gia,
+                            sale = sp.sale,
+                            loaivai = sp.loaivai,
+                            anhdaidien = sp.anhdaidien
+
+                        }).ToList();
+                    Debug.WriteLine($"Kiểu mẫu khác 3: {ls}");
+                    sanPhamDTOBindingSource.DataSource = null;
+                    sanPhamDTOBindingSource.DataSource = ls;
+                    resetFormSP();
+                    resetFormAnh();
+                    txtmasp2.Text = "";
+                    anhDTOBindingSource.DataSource = null;
+                    sizeDTOBindingSource.DataSource = null;
+                }
+
+            }
+        }
+
+        
     }
-}   
+}
+//Debug.WriteLine($"Kiểu mẫu khác null KieuMau: {kieumau.idkieumau} và {kieumau.tenmau}");

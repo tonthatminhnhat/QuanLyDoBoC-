@@ -255,6 +255,7 @@
             txttiemkiem.Name = "txttiemkiem";
             txttiemkiem.Size = new Size(125, 27);
             txttiemkiem.TabIndex = 8;
+            txttiemkiem.TextChanged += txttiemkiem_TextChanged;
             txttiemkiem.KeyPress += txttiemkiem_KeyPress;
             // 
             // label4

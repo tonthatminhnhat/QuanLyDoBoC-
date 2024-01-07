@@ -164,5 +164,10 @@ namespace EFCoreTutorial
         {
 
         }
+
+        private void txttiemkiem_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

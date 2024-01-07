@@ -93,6 +93,12 @@
             btnUpdateAnh = new Button();
             btnAddAnh = new Button();
             btnresetformanh = new Button();
+            label17 = new Label();
+            txtsearch = new TextBox();
+            label16 = new Label();
+            cbbsapxep = new ComboBox();
+            label18 = new Label();
+            cbbloc = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridViewSP).BeginInit();
             ((System.ComponentModel.ISupportInitialize)sanPhamDTOBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewAnh).BeginInit();
@@ -112,13 +118,13 @@
             dataGridViewSP.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewSP.Columns.AddRange(new DataGridViewColumn[] { maspDataGridViewTextBoxColumn, namespDataGridViewTextBoxColumn, idkieumauDataGridViewTextBoxColumn, giaDataGridViewTextBoxColumn, saleDataGridViewTextBoxColumn, hethangDataGridViewTextBoxColumn, loaivaiDataGridViewTextBoxColumn, anhdaidienDataGridViewTextBoxColumn });
             dataGridViewSP.DataSource = sanPhamDTOBindingSource;
-            dataGridViewSP.Location = new Point(12, 190);
+            dataGridViewSP.Location = new Point(12, 350);
             dataGridViewSP.Name = "dataGridViewSP";
             dataGridViewSP.ReadOnly = true;
             dataGridViewSP.RowHeadersVisible = false;
             dataGridViewSP.RowHeadersWidth = 51;
             dataGridViewSP.RowTemplate.Height = 29;
-            dataGridViewSP.Size = new Size(1278, 853);
+            dataGridViewSP.Size = new Size(1278, 693);
             dataGridViewSP.TabIndex = 0;
             dataGridViewSP.CellClick += SelectRowSP;
             // 
@@ -203,7 +209,7 @@
             // cbbKieuMau
             // 
             cbbKieuMau.FormattingEnabled = true;
-            cbbKieuMau.Location = new Point(292, 12);
+            cbbKieuMau.Location = new Point(92, 73);
             cbbKieuMau.Name = "cbbKieuMau";
             cbbKieuMau.Size = new Size(103, 28);
             cbbKieuMau.TabIndex = 1;
@@ -344,7 +350,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(212, 15);
+            label1.Location = new Point(12, 76);
             label1.Name = "label1";
             label1.Size = new Size(74, 20);
             label1.TabIndex = 4;
@@ -363,7 +369,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(10, 58);
+            label3.Location = new Point(10, 210);
             label3.Name = "label3";
             label3.Size = new Size(101, 20);
             label3.TabIndex = 6;
@@ -372,7 +378,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(10, 85);
+            label4.Location = new Point(10, 237);
             label4.Name = "label4";
             label4.Size = new Size(103, 20);
             label4.TabIndex = 7;
@@ -381,7 +387,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(183, 59);
+            label5.Location = new Point(183, 211);
             label5.Name = "label5";
             label5.Size = new Size(97, 20);
             label5.TabIndex = 8;
@@ -390,7 +396,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(405, 59);
+            label6.Location = new Point(405, 211);
             label6.Name = "label6";
             label6.Size = new Size(34, 20);
             label6.TabIndex = 9;
@@ -399,7 +405,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(511, 60);
+            label7.Location = new Point(511, 212);
             label7.Name = "label7";
             label7.Size = new Size(40, 20);
             label7.TabIndex = 10;
@@ -408,7 +414,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(654, 124);
+            label8.Location = new Point(654, 276);
             label8.Name = "label8";
             label8.Size = new Size(73, 20);
             label8.TabIndex = 11;
@@ -417,7 +423,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(10, 109);
+            label9.Location = new Point(10, 261);
             label9.Name = "label9";
             label9.Size = new Size(93, 20);
             label9.TabIndex = 12;
@@ -428,7 +434,7 @@
             cbhethang.AutoSize = true;
             cbhethang.BackColor = Color.FromArgb(224, 224, 224);
             cbhethang.Enabled = false;
-            cbhethang.Location = new Point(733, 131);
+            cbhethang.Location = new Point(733, 283);
             cbhethang.Name = "cbhethang";
             cbhethang.Size = new Size(18, 17);
             cbhethang.TabIndex = 13;
@@ -437,7 +443,7 @@
             // txtmasp
             // 
             txtmasp.BackColor = Color.FromArgb(224, 224, 224);
-            txtmasp.Location = new Point(119, 58);
+            txtmasp.Location = new Point(119, 210);
             txtmasp.Name = "txtmasp";
             txtmasp.ReadOnly = true;
             txtmasp.Size = new Size(58, 27);
@@ -447,42 +453,42 @@
             // 
             cbbidkieumau.BackColor = Color.FromArgb(255, 192, 192);
             cbbidkieumau.FormattingEnabled = true;
-            cbbidkieumau.Location = new Point(286, 57);
+            cbbidkieumau.Location = new Point(286, 209);
             cbbidkieumau.Name = "cbbidkieumau";
             cbbidkieumau.Size = new Size(113, 28);
             cbbidkieumau.TabIndex = 15;
             // 
             // txtsale
             // 
-            txtsale.Location = new Point(547, 57);
+            txtsale.Location = new Point(547, 209);
             txtsale.Name = "txtsale";
             txtsale.Size = new Size(32, 27);
             txtsale.TabIndex = 16;
             // 
             // txtgia
             // 
-            txtgia.Location = new Point(445, 58);
+            txtgia.Location = new Point(445, 210);
             txtgia.Name = "txtgia";
             txtgia.Size = new Size(71, 27);
             txtgia.TabIndex = 17;
             // 
             // txtnamesp
             // 
-            txtnamesp.Location = new Point(119, 88);
+            txtnamesp.Location = new Point(119, 240);
             txtnamesp.Name = "txtnamesp";
             txtnamesp.Size = new Size(632, 27);
             txtnamesp.TabIndex = 18;
             // 
             // txtanhdaidien
             // 
-            txtanhdaidien.Location = new Point(119, 121);
+            txtanhdaidien.Location = new Point(119, 273);
             txtanhdaidien.Name = "txtanhdaidien";
             txtanhdaidien.Size = new Size(529, 27);
             txtanhdaidien.TabIndex = 19;
             // 
             // btnresetformsp
             // 
-            btnresetformsp.Location = new Point(12, 154);
+            btnresetformsp.Location = new Point(12, 306);
             btnresetformsp.Name = "btnresetformsp";
             btnresetformsp.Size = new Size(128, 29);
             btnresetformsp.TabIndex = 21;
@@ -492,7 +498,7 @@
             // 
             // btnaddsp
             // 
-            btnaddsp.Location = new Point(143, 156);
+            btnaddsp.Location = new Point(143, 308);
             btnaddsp.Name = "btnaddsp";
             btnaddsp.Size = new Size(143, 29);
             btnaddsp.TabIndex = 22;
@@ -502,7 +508,7 @@
             // 
             // btnUpdateSP
             // 
-            btnUpdateSP.Location = new Point(292, 156);
+            btnUpdateSP.Location = new Point(292, 308);
             btnUpdateSP.Name = "btnUpdateSP";
             btnUpdateSP.Size = new Size(153, 29);
             btnUpdateSP.TabIndex = 23;
@@ -512,7 +518,7 @@
             // 
             // btnxoasp
             // 
-            btnxoasp.Location = new Point(474, 155);
+            btnxoasp.Location = new Point(474, 307);
             btnxoasp.Name = "btnxoasp";
             btnxoasp.Size = new Size(128, 29);
             btnxoasp.TabIndex = 24;
@@ -524,7 +530,7 @@
             // 
             pictureBox1.BorderStyle = BorderStyle.FixedSingle;
             pictureBox1.ErrorImage = (Image)resources.GetObject("pictureBox1.ErrorImage");
-            pictureBox1.Location = new Point(780, 15);
+            pictureBox1.Location = new Point(780, 167);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(127, 170);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -534,7 +540,7 @@
             // 
             // txtloaivai
             // 
-            txtloaivai.Location = new Point(654, 55);
+            txtloaivai.Location = new Point(654, 207);
             txtloaivai.Name = "txtloaivai";
             txtloaivai.Size = new Size(97, 27);
             txtloaivai.TabIndex = 27;
@@ -542,7 +548,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(585, 58);
+            label10.Location = new Point(585, 210);
             label10.Name = "label10";
             label10.Size = new Size(63, 20);
             label10.TabIndex = 26;
@@ -689,12 +695,71 @@
             btnresetformanh.UseVisualStyleBackColor = true;
             btnresetformanh.Click += btnresetformanh_Click;
             // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Location = new Point(257, 73);
+            label17.Name = "label17";
+            label17.Size = new Size(70, 20);
+            label17.TabIndex = 47;
+            label17.Text = "Tìm kiếm";
+            // 
+            // txtsearch
+            // 
+            txtsearch.Location = new Point(356, 76);
+            txtsearch.Name = "txtsearch";
+            txtsearch.Size = new Size(211, 27);
+            txtsearch.TabIndex = 48;
+            txtsearch.KeyPress += txtSearch;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(727, 76);
+            label16.Name = "label16";
+            label16.Size = new Size(65, 20);
+            label16.TabIndex = 50;
+            label16.Text = "Sắp xếp:";
+            // 
+            // cbbsapxep
+            // 
+            cbbsapxep.FormattingEnabled = true;
+            cbbsapxep.Location = new Point(798, 73);
+            cbbsapxep.Name = "cbbsapxep";
+            cbbsapxep.Size = new Size(151, 28);
+            cbbsapxep.TabIndex = 51;
+            cbbsapxep.SelectedIndexChanged += cbbSapXel_SelectedIndexChanged;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Location = new Point(757, 119);
+            label18.Name = "label18";
+            label18.Size = new Size(35, 20);
+            label18.TabIndex = 52;
+            label18.Text = "Lọc:";
+            // 
+            // cbbloc
+            // 
+            cbbloc.FormattingEnabled = true;
+            cbbloc.Location = new Point(798, 116);
+            cbbloc.Name = "cbbloc";
+            cbbloc.Size = new Size(151, 28);
+            cbbloc.TabIndex = 53;
+            cbbloc.SelectedIndexChanged += cbbLoc_SelectedIndexChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonHighlight;
             ClientSize = new Size(1924, 1055);
+            Controls.Add(cbbloc);
+            Controls.Add(label18);
+            Controls.Add(cbbsapxep);
+            Controls.Add(label16);
+            Controls.Add(txtsearch);
+            Controls.Add(label17);
             Controls.Add(btnDeleteAnh);
             Controls.Add(btnUpdateAnh);
             Controls.Add(btnAddAnh);
@@ -740,6 +805,7 @@
             Name = "Form1";
             Text = "Form1";
             WindowState = FormWindowState.Maximized;
+            KeyPress += txtSearch;
             ((System.ComponentModel.ISupportInitialize)dataGridViewSP).EndInit();
             ((System.ComponentModel.ISupportInitialize)sanPhamDTOBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewAnh).EndInit();
@@ -817,5 +883,11 @@
         private DataGridViewTextBoxColumn sizeDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn maanhDataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn maspDataGridViewTextBoxColumn2;
+        private Label label17;
+        private TextBox txtsearch;
+        private Label label16;
+        private ComboBox cbbsapxep;
+        private Label label18;
+        private ComboBox cbbloc;
     }
 }
